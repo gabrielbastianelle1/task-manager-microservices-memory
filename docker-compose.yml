@@ -1,0 +1,42 @@
+version: '3.9'
+
+networks:
+  app:
+    name: app
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24
+
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    networks:
+      app:
+        ipv4_address: 10.0.0.5
+    volumes:
+      - ./services-nginx:/etc/nginx/conf.d
+
+  task_service:
+    networks:
+      - app
+    extends:
+      file: task_service/docker-compose.yml
+      service: task_service
+
+  user_service:
+    networks:
+      - app
+    extends:
+      file: user_service/docker-compose.yml
+      service: user_service
+
+  frontend:
+    networks:
+      - app
+    extends:
+      file: frontend/docker-compose.yml
+      service: frontend
+

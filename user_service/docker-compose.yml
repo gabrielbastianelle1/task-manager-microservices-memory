@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  user_service:
+    image: node
+    container_name: user_service
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: npm start

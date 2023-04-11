@@ -1,0 +1,38 @@
+GET http://localhost:3000
+
+
+###
+POST http://localhost:3000/signin
+Content-Type: application/json
+
+{
+    "name": "gabriel"
+}
+
+###
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "name": "teste"
+}
+
+###
+GET http://myapp.com/api/user
+
+###
+POST http://myapp.com/api/user/signin
+Content-Type: application/json
+
+{
+    "name": "lalala"
+}
+
+
+###
+POST http://myapp.com/api/user/signup
+Content-Type: application/json
+
+{
+    "name": "daniel"
+}

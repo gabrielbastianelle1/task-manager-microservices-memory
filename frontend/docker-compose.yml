@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  frontend:
+    image: node
+    container_name: frontend
+    working_dir: /app/my-app
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+    command: npm run dev
