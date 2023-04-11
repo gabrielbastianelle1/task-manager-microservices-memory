@@ -6,7 +6,13 @@ export default function Signup() {
     const [name, setName] = useState<string>("");
 
     const onSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
-        axios.post("http://myapp.com/api/task");
+        event.preventDefault();
+        axios
+            .post("http://myapp.com/api/user/signup", {
+                name: name,
+            })
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error));
     };
 
     return (
@@ -28,7 +34,7 @@ export default function Signup() {
                     </div>
                 </div>
                 <div className="md:space-x-5 space-y-5">
-                    <button type="button" className="button-default">
+                    <button type="submit" className="button-default">
                         Create Account
                     </button>
                     <Link href="/" className="button-light">
