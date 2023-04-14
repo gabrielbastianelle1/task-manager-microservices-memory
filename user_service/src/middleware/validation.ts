@@ -1,9 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
-export function validation(req: Request, res: Response, next) {
+const usernameRgx = /^(?=.*[a-zA-Z])[a-zA-Z0-9_]{3,16}$/;
+
+export function validation(req: Request, res: Response, next: NextFunction) {
     const { name } = req.body;
 
-    if (name === undefined || name === "") {
+    if (!usernameRgx.test(name)) {
         return res.status(400).json({
             msg: "invalid name"
         });

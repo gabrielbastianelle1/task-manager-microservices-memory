@@ -1,0 +1,20 @@
+
+###
+GET http://myapp.com/api/task
+
+###
+POST http://myapp.com/api/task/signin
+Content-Type: application/json
+
+{
+    "name": "lalala"
+}
+
+
+###
+POST http://myapp.com/api/user/signup
+Content-Type: application/json
+
+{
+    "name": "daniel"
+}

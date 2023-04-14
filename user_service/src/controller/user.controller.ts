@@ -3,6 +3,7 @@ import users from "../fakedb/datasabe";
 import IUser from "../model/IUser";
 import IResponse from "../model/IResponse";
 import { find } from "../utils/user.utils";
+import { v4 as uuidv4 } from "uuid";
 
 export function findAllUsers(req: Request, res: Response) {
     res.status(200).json(users);
@@ -57,7 +58,7 @@ export function signup(req: Request, res: Response) {
         }
 
         let newUser: IUser = {
-            id: users.length + 1,
+            id: uuidv4(),
             name: req.body.name
         };
 
