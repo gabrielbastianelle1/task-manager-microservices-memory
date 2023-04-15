@@ -17,6 +17,7 @@ export default function Home() {
                 name: name,
             })
             .then((response) => {
+                sessionStorage.setItem("idUser", response.data.data.id);
                 router.push("/dashboard");
             })
             .catch((error) => setError(error.response.data.msg));

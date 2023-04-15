@@ -3,18 +3,14 @@
 GET http://myapp.com/api/task
 
 ###
-POST http://myapp.com/api/task/signin
+POST http://myapp.com/api/task/save-task/75a89149-acf6-44b9-9824-2e9bb06557f5
 Content-Type: application/json
 
 {
-    "name": "lalala"
+    "task": "clean house"
 }
 
 
 ###
-POST http://myapp.com/api/user/signup
-Content-Type: application/json
+GET http://myapp.com/api/task/find-all-by-userid/75a89149-acf6-44b9-9824-2e9bb06557f5
 
-{
-    "name": "daniel"
-}
