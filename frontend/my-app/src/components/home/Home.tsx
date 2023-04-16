@@ -24,16 +24,33 @@ export default function Home() {
         });
     }, []);
 
+    const refreshTasks = () => {
+        axios
+            .get(`http://myapp.com/api/task/find-all-by-userid/${idUser}`)
+            .then((response) => {
+                setTasks(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
-        <main className="flex flex-col gap-y-8  flex-grow bg-slate-100  p-8 relative">
-            <TaskForm idUser={idUser} />
+        <main className="flex flex-col flex-grow w-0  gap-y-8   bg-slate-100  p-8 relative">
+            <TaskForm refreshTasks={refreshTasks} />
             {tasks == null ? (
                 <div>loading</div>
             ) : tasks.length === 0 ? (
                 <div>no tasks</div>
             ) : (
-                tasks.map((task, index) => {
-                    return <Task key={task.id} task={task.task} />;
+                tasks.map((task) => {
+                    return (
+                        <Task
+                            key={task.id}
+                            task={task}
+                            refreshTasks={refreshTasks}
+                        />
+                    );
                 })
             )}
         </main>

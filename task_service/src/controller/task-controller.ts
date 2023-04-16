@@ -26,3 +26,24 @@ export function saveTask(req: Request, res: Response) {
     tasks.push(newTask);
     res.status(203).json(newTask);
 }
+
+export function deleteTask(req: Request, res: Response) {
+    const id: string = req.params.id;
+
+    const deleted = new Promise((resolve, reject) => {
+        const index = tasks.findIndex((task) => task.id === id);
+        if (index === -1) {
+            return reject({
+                msg: "failed to delete"
+            });
+        }
+        tasks.splice(index, 1);
+        return resolve({
+            msg: "success deleted"
+        });
+    });
+
+    deleted
+        .then((response) => res.status(200).json(response))
+        .catch((error) => res.status(400).json(error));
+}

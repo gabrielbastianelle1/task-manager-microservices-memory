@@ -69,7 +69,7 @@ export function signup(req: Request, res: Response) {
         };
 
         users.push(newUser);
-        resolve(response);
+        return resolve(response);
     });
 
     authentication
