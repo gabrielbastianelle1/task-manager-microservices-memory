@@ -13,6 +13,8 @@ export function findAllByUserId(req: Request, res: Response) {
     res.status(200).json(filtered);
 }
 
+export function findAllActiveByUserId(req: Request, res: Response) {}
+
 export function saveTask(req: Request, res: Response) {
     const id: string = req.params.id;
     const { task } = req.body;
@@ -20,7 +22,9 @@ export function saveTask(req: Request, res: Response) {
     const newTask: ITask = {
         id: uuidv4(),
         idUser: id,
-        task: task
+        task: task,
+        done: false,
+        dateDone: ""
     };
 
     tasks.push(newTask);
@@ -44,6 +48,32 @@ export function deleteTask(req: Request, res: Response) {
     });
 
     deleted
+        .then((response) => res.status(200).json(response))
+        .catch((error) => res.status(400).json(error));
+}
+
+export function setTaskDone(req: Request, res: Response) {
+    const id: string = req.params.id;
+
+    const taskUpdated = new Promise((resolve, reject) => {
+        tasks.forEach((task) => {
+            if (task.id === id) {
+                task.done = true;
+                task.dateDone = new Date().toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                });
+                return resolve(task);
+            }
+        });
+
+        return reject({
+            msg: "not valid id"
+        });
+    });
+
+    taskUpdated
         .then((response) => res.status(200).json(response))
         .catch((error) => res.status(400).json(error));
 }

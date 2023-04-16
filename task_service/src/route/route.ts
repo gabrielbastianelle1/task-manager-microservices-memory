@@ -3,7 +3,8 @@ import {
     findAllByUserId,
     findAllTasks,
     saveTask,
-    deleteTask
+    deleteTask,
+    setTaskDone
 } from "../controller/task-controller";
 import taskValidation from "../middleware/validation";
 
@@ -13,5 +14,6 @@ router.get("/", findAllTasks);
 router.get("/find-all-by-userid/:id", findAllByUserId);
 router.post("/save-task/:id", taskValidation, saveTask);
 router.delete("/delete-task/:id", deleteTask);
+router.put("/set-task-done/:id", setTaskDone);
 
 export default router;

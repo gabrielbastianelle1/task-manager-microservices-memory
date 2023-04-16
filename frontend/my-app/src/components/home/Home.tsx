@@ -5,6 +5,10 @@ import ITask from "@/model/ITask";
 import axios from "axios";
 import getSessionStorageValue from "@/utils/getSessionStorageValue";
 
+function filterTasksActives(tasks: ITask[]) {
+    return tasks.filter((tasks) => !tasks.done);
+}
+
 export default function Home() {
     const [tasks, setTasks] = useState<ITask[] | null>(null);
     const [idUser, setUserId] = useState<string | null>("");
@@ -16,7 +20,10 @@ export default function Home() {
             axios
                 .get(`http://myapp.com/api/task/find-all-by-userid/${response}`)
                 .then((response) => {
-                    setTasks(response.data);
+                    return filterTasksActives(response.data);
+                })
+                .then((response) => {
+                    setTasks(response);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -25,6 +32,8 @@ export default function Home() {
     }, []);
 
     const refreshTasks = () => {
+        console.log("aosdjokasm");
+
         axios
             .get(`http://myapp.com/api/task/find-all-by-userid/${idUser}`)
             .then((response) => {
