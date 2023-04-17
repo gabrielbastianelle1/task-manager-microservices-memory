@@ -1,12 +1,21 @@
-# e-MARC Analytics Project #
+# To-do App #
 
 ### Introduction ###
 
-microservice task manager
+The classic To-Do application where a user can write down all the things he wants to accomplish. No database.
+
+## User Stories
+
+-   [ ] User can see an `input` field where he can type in a to-do item
+-   [ ] By pressing send, the User can submit the to-do item and can see that being added to a list of to-do's
+-   [ ] User can mark a to-do as `completed`
+-   [ ] User can remove a to-do item by pressing on a button (or on the to-do item itself)
+-   [ ] User can see a list with all completed to-do's
+-   [ ] User can see a list with all active to-do's
 
 ### How to I setup my development environment? ###
 
-* Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* Install [Docker](https://www.docker.com)
 * Create the necessary Docker Images and Containers by running the following command in the project's root folder:
 ```
 docker-compose up --build
