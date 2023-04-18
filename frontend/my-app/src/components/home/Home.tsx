@@ -5,6 +5,7 @@ import ITask from "@/model/ITask";
 import axios from "axios";
 import getSessionStorageValue from "@/utils/getSessionStorageValue";
 import FilterDropdown from "../dropdown/FilterDropdown";
+import TaskDone from "../task/TaskDone";
 
 export default function Home() {
     const [tasks, setTasks] = useState<ITask[] | null>(null);
@@ -16,7 +17,7 @@ export default function Home() {
             setUserId(response);
             requestData(response);
         });
-    }, []);
+    }, [filtered]);
 
     function requestData(idUser: string | null) {
         axios
@@ -32,6 +33,7 @@ export default function Home() {
             });
     }
     function refreshTasks() {
+        console.log(filtered);
         requestData(idUser);
     }
 
@@ -54,7 +56,6 @@ export default function Home() {
                     },
                 ]}
                 setFiltered={setFiltered}
-                refreshTasks={refreshTasks}
             />
             {tasks == null ? (
                 <div>loading</div>
@@ -62,13 +63,16 @@ export default function Home() {
                 <div>no tasks</div>
             ) : (
                 tasks.map((task) => {
-                    return (
-                        <Task
-                            key={task.id}
-                            task={task}
-                            refreshTasks={refreshTasks}
-                        />
-                    );
+                    if (filtered == false) {
+                        return (
+                            <Task
+                                key={task.id}
+                                task={task}
+                                refreshTasks={refreshTasks}
+                            />
+                        );
+                    }
+                    return <TaskDone task={task} />;
                 })
             )}
         </main>

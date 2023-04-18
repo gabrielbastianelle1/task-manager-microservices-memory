@@ -9,14 +9,9 @@ type Option = {
 type DropdownProps = {
     options: Option[];
     setFiltered: (state: boolean) => void;
-    refreshTasks: () => void;
 };
 
-const FilterDropdown: React.FC<DropdownProps> = ({
-    options,
-    setFiltered,
-    refreshTasks,
-}) => {
+const FilterDropdown: React.FC<DropdownProps> = ({ options, setFiltered }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<Option | null>(
         options[0]
@@ -44,7 +39,6 @@ const FilterDropdown: React.FC<DropdownProps> = ({
         setSelectedOption(option);
         setIsOpen(false);
         setFiltered(option.value);
-        refreshTasks();
     };
 
     return (
