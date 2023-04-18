@@ -3,10 +3,10 @@ import axios from "axios";
 import DeleteModal from "../modal/DeleteModal";
 import { useState } from "react";
 
-interface Props {
+type Props = {
     task: ITask;
     refreshTasks: () => void;
-}
+};
 
 export default function Task({ task, refreshTasks }: Props) {
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
@@ -19,6 +19,7 @@ export default function Task({ task, refreshTasks }: Props) {
             .then((response) => {
                 setIsDeleted(true);
                 setTimeout(() => {
+                    console.log("asdas");
                     refreshTasks();
                 }, 500);
             })

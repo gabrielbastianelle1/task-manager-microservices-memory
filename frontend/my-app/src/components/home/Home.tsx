@@ -4,49 +4,58 @@ import TaskForm from "../task/TaskForm";
 import ITask from "@/model/ITask";
 import axios from "axios";
 import getSessionStorageValue from "@/utils/getSessionStorageValue";
-
-function filterTasksActives(tasks: ITask[]) {
-    return tasks.filter((tasks) => !tasks.done);
-}
+import FilterDropdown from "../dropdown/FilterDropdown";
 
 export default function Home() {
     const [tasks, setTasks] = useState<ITask[] | null>(null);
     const [idUser, setUserId] = useState<string | null>("");
+    const [filtered, setFiltered] = useState<boolean>(false);
 
     useEffect(() => {
         getSessionStorageValue("idUser").then((response) => {
             setUserId(response);
-            console.log(response);
-            axios
-                .get(`http://myapp.com/api/task/find-all-by-userid/${response}`)
-                .then((response) => {
-                    return filterTasksActives(response.data);
-                })
-                .then((response) => {
-                    setTasks(response);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            requestData(response);
         });
     }, []);
 
-    const refreshTasks = () => {
-        console.log("aosdjokasm");
-
+    function requestData(idUser: string | null) {
         axios
             .get(`http://myapp.com/api/task/find-all-by-userid/${idUser}`)
             .then((response) => {
-                setTasks(response.data);
+                return filterTasksActives(response.data);
+            })
+            .then((response) => {
+                setTasks(response);
             })
             .catch((error) => {
                 console.log(error);
             });
-    };
+    }
+    function refreshTasks() {
+        requestData(idUser);
+    }
+
+    function filterTasksActives(tasks: ITask[]) {
+        return tasks.filter((tasks) => tasks.done === filtered);
+    }
 
     return (
         <main className="flex flex-col flex-grow w-0  gap-y-8   bg-slate-100  p-8 relative">
             <TaskForm refreshTasks={refreshTasks} />
+            <FilterDropdown
+                options={[
+                    {
+                        label: "active tasks",
+                        value: false,
+                    },
+                    {
+                        label: "completed tasks",
+                        value: true,
+                    },
+                ]}
+                setFiltered={setFiltered}
+                refreshTasks={refreshTasks}
+            />
             {tasks == null ? (
                 <div>loading</div>
             ) : tasks.length === 0 ? (

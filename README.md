@@ -25,3 +25,7 @@ docker-compose up --build
 ```
 docker-compose down
 ```
+* Open the next url in your web browser and have fun:
+```
+http://10.0.0.5
+```

@@ -4,7 +4,7 @@ import Home from "./home/Home";
 
 export default function Layout() {
     return (
-        <main className="flex overflow-x-hidden">
+        <main className="flex">
             <Sidebar />
             <Home />
             <Rightbar />
