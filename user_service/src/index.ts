@@ -8,5 +8,5 @@ app.use(cors());
 app.use(router);
 
 app.listen(3000, () => {
-    console.log("user service running in port 3000");
+    console.log("user service running in port 3000!");
 });
