@@ -1,13 +1,12 @@
 import User from "../../../domain/user/entity/User";
 import UserRepositoryInterface from "../resository/UserRepositoryInterface";
 
-export default class CreateUserUseCase {
+export default class Signin {
     constructor(private ur: UserRepositoryInterface) {}
 
-    execute(user: User): void {
-        if (this.ur.findByUsername(user.getName()) === null) {
-            return;
-        }
-        this.ur.save(user);
+    public execute(name: string): User {
+        const user: User = this.ur.findByName(name);
+        if (user) return user;
+        throw new Error("name invalid");
     }
 }

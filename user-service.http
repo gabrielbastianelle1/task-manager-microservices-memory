@@ -25,14 +25,14 @@ POST http://myapp.com/api/user/signin
 Content-Type: application/json
 
 {
-    "name": "lalala"
+    "name": "gabriel"
 }
 
 
 ###
-POST http://myapp.com/api/user/create-user
+POST http://myapp.com/api/user/signup
 Content-Type: application/json
 
 {
-    "name": "daniel"
+    "name": "fronho fronhasso"
 }
